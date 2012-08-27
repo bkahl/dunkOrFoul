@@ -5,6 +5,7 @@
 
 var express         = require('express'),
     routes          = require('./routes'),
+    about = require('./routes/about'),
     // middleware      = require('./middleware/user'),
     app = module.exports = express.createServer(),
     port = process.env.PORT || 4000;
@@ -43,7 +44,7 @@ express.compiler.compilers.less.compile = function(str, fn){
 // Routes
 
 app.get('/', routes.index);
-app.get('/', routes.about);
+app.get('/about', routes.about);
 
 // app.get('/', function(req, res) {
 //   var fields = { subject: 1, body: 1, tags: 1, created: 1, author: 1 };
