@@ -12,7 +12,7 @@ DribbbleProxy.prototype.get_shots_object_by_how_many_debuts = function( howManyP
     for(var i=0; i<howManyPerPage; i++){
       debuts.push(debutsFeed.shots[i]);
     }
-    console.log(debuts);
+    //console.log(debuts);
     callback(null, debuts);
   });
 };

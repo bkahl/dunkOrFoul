@@ -34,11 +34,11 @@ exports.index = function(req, res, next){
       nextPage = parseInt(rowPage,10)+1,
       previousPage = rowPage <= 1 ? 1 : parseInt(rowPage,10)-1;
   
-  //console.log("THE CURRENT PAGE = ", rowPage);
+  console.log("THE CURRENT PAGE = ", rowPage);
   
   // proxy.get_shots_object_by_how_many_debuts(14, function(error, shots){
   //   if (error) return next(error);
-  //   console.log(shots);
+  //   //console.log(shots);
   //   var shotsString = shots.map(function(shot) {
   //     return JSON.stringify(shot);
   //   });
@@ -52,17 +52,17 @@ exports.index = function(req, res, next){
   //   res.render('index', { paginate: paginate });
   // });
 
-  var search = req.query['username'];
-  
-  proxy.get_object_by_username('simplebits', function(error, shots) {
-    if (error) return next(error);
-    // var shotsString = shots.map(function(shot) {
-    //   return JSON.stringify(shot);
-    // });
-    res.render('index', { username: search,
-                          title: 'National Design League', 
-                          shots: shots });
-  });
+  // var search = req.query['username'];
+  // 
+  // proxy.get_object_by_username('simplebits', function(error, shots) {
+  //   if (error) return next(error);
+  //   // var shotsString = shots.map(function(shot) {
+  //   //   return JSON.stringify(shot);
+  //   // });
+  //   res.render('index', { username: search,
+  //                         title: 'National Design League', 
+  //                         shots: shots });
+  // });
      
   proxy.get_shots_object_by_debuts(rowPage, function(error, shots) {
     if (error) return next(error);

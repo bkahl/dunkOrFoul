@@ -1,8 +1,7 @@
-
 .navbar.navbar-fixed-top
   .navbar-inner
     .container
-      // a.brand(href="#")= title
+      a.brand(href="#")= title
       .nav-collapse
         ul.nav
           li.active
@@ -11,70 +10,23 @@
             a(href="#about") About
           li
             a(href="#contact") Contact
-            
-        form.navbar-search.pull-left(method="get", action="/{username}")
-          input.search-query.span2(type="text", placeholder="Search", name="search")
           
 .container
   .hero-unit
-    p= shots
-    // h1 Hello, World!
-    // p This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.
-    // p
-    //   a.btn.btn-primary.btn-large(href="#") Lean more >>
-    
-    // //Works  
-    // ul.thumbnails
-    //   each shot in debut_shots
-    //     li
-    //       a.thumbnail(href="#")
-    //         img(src=shot.image_url, alt="", width="200", height="150")
-    // 
-    // //Works            
-    // ul.pager
-    //   li.disabled
-    //     a(href="/?page=#{previousPage}") Prev
-    //   li.active
-    //     a(href="/?page=#{nextPage}") Next
-    
-    // div.pagination
-    //   ul
-    //     li.prev.disabled
-    //       a(id='prev') Prev 
-    //     li.active#page1
-    //       a(href="/?page=1") 1
-    //     each i in pages
-    //       li(id="page"+i)
-    //         a(href="/?page="+i)= i
-    //     li.next
-    //       a(id='next') Next
-    
-    // script(type='text/javascript', src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js')
-    // script(type='text/javascript')
-    //   // $('.pagination ul li.next').click(function(){
-    //   //         this.addClass('active')
-    //   //       });
-    //   
-    //   var liSize = $('.pagination ul li').size()-2
-    //   var length = 10
-    //   var curPos = $('.pagination ul li.active')
-    //   var arry = [];
-    //   
-    //   $('.pagination ul li').each(function(index) {
-    //     arry.push(index)
-    //   })
-    //   
-    //   arry.pop()
-    //   //alert(arry)
-    //   
-    //   for(var i=1;i<arry.length;i++)
-    //     if(i>length) $('.pagination ul li#page'+i).css('display','none')
-    //   
-    //   // $('a.next').click(function(){
-    //   //   var
-    //   // })
-    //   
-    //   var paginate = (liSize / length)
+
+     //Works  
+     ul.thumbnails
+       each shot in debut_shots
+         li
+           a.thumbnail(href="#")
+             img(src=shot.image_url, alt="", width="315", height="265")
+     
+     //Works            
+     ul.pager
+       li.disabled
+         a(href="/?page=#{previousPage}") Prev
+       li.active
+         a(href="/?page=#{nextPage}") Next
       
       
       
@@ -92,4 +44,3 @@
       
       
       
-        
