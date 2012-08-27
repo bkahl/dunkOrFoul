@@ -24,7 +24,7 @@ var mongoose          = require('mongoose'),
 //   });
 // });
 
-exports.index = function(req, res, next){
+exports.about = function(req, res, next){
   
   var proxy = new DribbbleProxy(),
       debut_shots = [],
@@ -39,35 +39,7 @@ exports.index = function(req, res, next){
   else prevEnabled = "active";
   
   console.log("THE CURRENT PAGE = ", rowPage);
-  
-  // proxy.get_shots_object_by_how_many_debuts(14, function(error, shots){
-  //   if (error) return next(error);
-  //   //console.log(shots);
-  //   var shotsString = shots.map(function(shot) {
-  //     return JSON.stringify(shot);
-  //   });
-  //   res.render('index', { title: 'National Design League', shots: shots, shotsString: shotsString });
-  // });
-
-  // proxy.paginate( "shots/debuts", function( error, paginate ) {
-  //   if (error) return next(error);
-  //   console.log(paginate);
-  //   
-  //   res.render('index', { paginate: paginate });
-  // });
-
-  // var search = req.query['username'];
-  // 
-  // proxy.get_object_by_username('simplebits', function(error, shots) {
-  //   if (error) return next(error);
-  //   // var shotsString = shots.map(function(shot) {
-  //   //   return JSON.stringify(shot);
-  //   // });
-  //   res.render('index', { username: search,
-  //                         title: 'National Design League', 
-  //                         shots: shots });
-  // });
-     
+    
   proxy.get_shots_object_by_debuts(rowPage, function(error, shots) {
     if (error) return next(error);
     
@@ -78,7 +50,7 @@ exports.index = function(req, res, next){
       pages.push(p);
     }
     
-    res.render('index', { title: 'National Design League', 
+    res.render('about', { title: 'National Design League', 
                           debut_shots: debut_shots, 
                           per_page: shots.per_page, 
                           pages: pages,
