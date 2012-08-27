@@ -4,29 +4,15 @@
       a.brand(href="/#")= title
       .nav-collapse
         ul.nav
-          li.active
-            a(href="/#") Home
           li
+            a(href="/#") Home
+          li.active
             a(href="/#about") About
           li
             a(href="/#contact") Contact
           
 .container
   .hero-unit
-
-     //Works  
-     ul.thumbnails
-       each shot in debut_shots
-         li
-           a.thumbnail(href="#")
-             img(src=shot.image_url, alt="", width="315", height="265")
-     
-     //Works            
-     ul.pager
-       li(class=prev.isEnabled)
-         a#prev(href="/?page=#{prev.page}") Prev
-       li.active
-         a#next(href="/?page=#{next.page}") Next
 
 
 script(type='text/javascript', src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js')

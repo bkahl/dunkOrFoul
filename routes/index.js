@@ -32,7 +32,11 @@ exports.index = function(req, res, next){
   
   var rowPage  = (req.query['page']*1 || 1),
       nextPage = parseInt(rowPage,10)+1,
-      previousPage = rowPage <= 1 ? 1 : parseInt(rowPage,10)-1;
+      previousPage = rowPage <= 1 ? 1 : parseInt(rowPage,10)-1,
+      prevEnabled, nextEnabled;
+
+  if(rowPage === 1) prevEnabled = "disabled";
+  else prevEnabled = "active";
   
   console.log("THE CURRENT PAGE = ", rowPage);
   
@@ -74,13 +78,19 @@ exports.index = function(req, res, next){
       pages.push(p);
     }
     
-    res.render('index', { title: 'National Design League', 
+    res.render('about', { title: 'National Design League', 
                           debut_shots: debut_shots, 
                           per_page: shots.per_page, 
                           pages: pages,
                           page: rowPage,
-                          nextPage: nextPage, 
-                          previousPage: previousPage });
+                          next: {
+									page: nextPage
+								}, 
+                          prev: {
+									isEnabled: prevEnabled,
+									page: previousPage
+								},
+			            });
   });
   
 
