@@ -24,7 +24,7 @@ var mongoose          = require('mongoose'),
 module.exports = function(app) {
 	
 	app.get('/', function(req, res, next){
-		
+	  
 	  var proxy = new DribbbleProxy(),
 	      debut_shots = [],
 	      pages = [];
@@ -68,6 +68,10 @@ module.exports = function(app) {
 	
 	app.get('/about', function(req, res, next){
 		res.render('about', { title: 'National Design League' });
+	});
+	
+	app.get('/contact', function(req, res, next){
+		res.render('contact', { title: 'National Design League' });
 	});
 	
 	// proxy.get_shots_object_by_how_many_debuts(14, function(error, shots){

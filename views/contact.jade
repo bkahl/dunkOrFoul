@@ -11,11 +11,11 @@ block navigation
 				a.brand(href='/')=title
 				.nav-collapse(class='collapse')
 					ul.nav
-						li.active
+						li
 							a(href='/') Home
 						li
 							a(href='/about') About
-						li
+						li.active
 							a(href='/contact') Contact
 					.navbar-search(class='pull-right', action='')
 						input(type='text', class='search-query span2', placeholder='Search')
@@ -23,24 +23,9 @@ block navigation
 block header
 	.jumbotron(class='masthead')
 		.container
-			h2=title
+			h2 Contact
 
 block content
-	.container
-
-		//Works  
-		ul.thumbnails
-			each shot in debut_shots
-				li
-					a.thumbnail(href='#')
-						img(src=shot.image_url, alt='', style='width: 200px !important; height: 150px !important;')
-
-		//Works            
-		ul.pager
-			li(class=prev.isEnabled)
-				a#prev(href='/?page=#{prev.page}') Prev	
-			li.active
-				a#next(href='/?page=#{next.page}') Next
       
 block footer
 	footer.footer

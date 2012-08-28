@@ -1,12 +1,51 @@
 doctype 5
-html(lang="en")
+html(lang='en')
 	head
 		block head
+			meta(charset='utf-8')
 			title= title
-			meta(name="viewport", content="width=device-width, initial-scale=1.0")
+			meta(name='viewport', content='width=device-width, initial-scale=1.0')
+			meta(name='description', content='')
+			meta(name='author', content='')
 			link(rel='stylesheet', href='/stylesheets/style.css')
+			link(rel='stylesheet', href='/stylesheets/docs.css')
 body
+	block navigation
+    
+	block header
+
+	block social
+		.bs-docs-social
+			.container
+				ul.bs-docs-social-buttons
+					li.follow-btn
+						iframe(allowtransparency='true', frameborder='0', scrolling='no', src='https://platform.twitter.com/widgets/follow_button.1346143399.html#_=1346180347059&amp;id=twitter-widget-1&amp;lang=en&amp;screen_name=bradkahl&amp;show_count=true&amp;show_screen_name=true&amp;size=m', class='twitter-follow-button', style='width: 217px; height: 20px; ', title='Twitter Follow Button', data-twttr-rendered='true')
+					li.tweet-btn
+						iframe(allowtransparency='true', frameborder='0', scrolling='no', src='https://platform.twitter.com/widgets/tweet_button.1346143399.html#_=1346180347055&amp;count=horizontal&amp;id=twitter-widget-0&amp;lang=en&amp;original_referer=file%3A%2F%2F%2FUsers%2Fbkahl%2FDesktop%2FBrad%2520Kahl%2FGIT%2Feperformance%2Findex.html&amp;size=m&amp;text=Twitter%20Bootstrap&amp;url=http%3A%2F%2Ftwitter.github.com%2Fbkahl&amp;via=twbootstrap', class='twitter-share-button twitter-count-horizontal', style='width: 107px; height: 20px; ', title='Twitter Tweet Button', data-twttr-rendered='true')
+    
 	block content
-	
-	script(type='text/javascript', src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
-	script(type='text/javascript')
+
+	block footer
+		footer.footer
+			.container
+				p.pull-right
+					a(href='#') Back to top
+
+	block scripts
+		script(type='text/javascript', src='http://platform.twitter.com/widgets.js');
+		script(type='text/javascript', src='/js/jquery.js');
+		script(type='text/javascript', src='/js/google-code-prettify/prettify.js');
+		script(type='text/javascript', src='/js/bootstrap-transition.js');
+		script(type='text/javascript', src='/js/bootstrap-alert.js');
+		script(type='text/javascript', src='/js/bootstrap-modal.js');
+		script(type='text/javascript', src='/js/bootstrap-dropdown.js');
+		script(type='text/javascript', src='/js/bootstrap-scrollspy.js');
+		script(type='text/javascript', src='/js/bootstrap-tab.js');
+		script(type='text/javascript', src='/js/bootstrap-tooltip.js');
+		script(type='text/javascript', src='/js/bootstrap-popover.js');
+		script(type='text/javascript', src='/js/bootstrap-button.js');
+		script(type='text/javascript', src='/js/bootstrap-collapse.js');
+		script(type='text/javascript', src='/js/bootstrap-carousel.js');
+		script(type='text/javascript', src='/js/bootstrap-typeahead.js');
+		script(type='text/javascript', src='/js/bootstrap-affix.js');
+		script(type='text/javascript', src='/js/application.js');
