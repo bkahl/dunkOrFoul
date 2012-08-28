@@ -3,18 +3,18 @@
  * Module dependencies.
  */
 
-var express         = require('express'),
-    routes          = require('./routes'),
-    about = require('./routes/about'),
-    // middleware      = require('./middleware/user'),
-    app = module.exports = express.createServer(),
-    port = process.env.PORT || 4000;
+var express         	= require('express'),
+    routes          	= require('./routes'),
+    // middleware      	= require('./middleware/user'),
+    app 				= module.exports = express.createServer(),
+    port 				= process.env.PORT || 4000;
 
 // Configuration
 
 app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
+  app.set('view options', { layout: false });
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.compiler({ src : __dirname + '/public', enable: ['less']}));
@@ -43,8 +43,10 @@ express.compiler.compilers.less.compile = function(str, fn){
 
 // Routes
 
-app.get('/', routes.index);
-app.get('/about', routes.about);
+// app.get('/', routes.index);
+// app.get('/about', routes.about);
+
+routes(app);
 
 // app.get('/', function(req, res) {
 //   var fields = { subject: 1, body: 1, tags: 1, created: 1, author: 1 };
