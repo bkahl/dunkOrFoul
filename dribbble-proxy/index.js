@@ -6,26 +6,27 @@ var request = require('request'),
 var DribbbleProxy = function() {};
   
 DribbbleProxy.prototype.get_shots_object_by_how_many_debuts = function( howManyPerPage, callback ) {
-  this.dribbbleGetRequest("/shots/debuts/per_page=" + howManyPerPage, function(err, debutsFeed){
+  this.dribbbleGetRequest("/shots/debuts/?per_page=" + howManyPerPage, function(err, debutsFeed){
     if (err) return callback("Couldn't Find Feed, Check to See if Dribble Is Down!"); 
     var debuts = [];
     for(var i=0; i<howManyPerPage; i++){
       debuts.push(debutsFeed.shots[i]);
     }
-    //console.log(debuts);
     callback(null, debuts);
   });
 };
 
-DribbbleProxy.prototype.get_shots_object_by_debuts = function(page, callback ) {
+DribbbleProxy.prototype.get_shots_object_by_debuts = function( page, callback ) {
   this.dribbbleGetRequest("/shots/debuts/?page="+page, function(err, debutsFeed){
     if (err) return callback("Couldn't Find Feed, Check to See if Dribble Is Down!"); 
     callback(null, debutsFeed);
   });
 };
 
-DribbbleProxy.prototype.get_object_by_username = function(username, callback ) {
-  this.dribbbleGetRequest("/"+username, function(err, usernameFound){
+DribbbleProxy.prototype.get_object_by_username = function( username, callback ) {
+  //this.dribbbleGetRequest("/"+username, function(err, usernameFound){
+  //changing to /player/:id/shots
+  this.dribbbleGetRequest("/players/"+username+"/shots", function(err, usernameFound){
     if (err) return callback("Could Not Find Username!"); 
     callback(null, usernameFound);
   });

@@ -15,18 +15,27 @@ block navigation
 							a(href='/') Home
 						li
 							a(href='/about') About
-						li.active
+						li
 							a(href='/contact') Contact
 					form.navbar-search(class='pull-right', method='POST', action='/search')
 						input(type='text', class='search-query span2', name='username', onfocus='if(this.placeholder === "Search...") {this.placeholder = "";}', onblur='if(this.placeholder === "") {this.placeholder = "Search...";}', placeholder='Search...')
 
-
 block header
 	.jumbotron(class='masthead')
 		.container
-			h2 Contact
+			h2 Search
 
 block content
+	.container
+
+		//p=searchData
+
+		//Works  
+		ul.thumbnails
+			each shot in debut_shots
+				li
+					a.thumbnail(href='#')
+						img(src=shot.image_url, alt='', style='width: 200px !important; height: 150px !important;')
       
 block footer
 	footer.footer

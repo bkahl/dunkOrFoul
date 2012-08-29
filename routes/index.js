@@ -23,10 +23,11 @@ var mongoose          = require('mongoose'),
 
 module.exports = function(app) {
 	
+	var proxy = new DribbbleProxy();
+	
 	app.get('/', function(req, res, next){
 	  
-	  var proxy = new DribbbleProxy(),
-	      debut_shots = [],
+	  var debut_shots = [],
 	      pages = [];
 
 	  var rowPage  = (req.query['page']*1 || 1),
@@ -34,18 +35,20 @@ module.exports = function(app) {
 	      previousPage = rowPage <= 1 ? 1 : parseInt(rowPage,10)-1,
 	      prevEnabled, nextEnabled;
 
-	  if(rowPage === 1) prevEnabled = "disabled";
-	  else prevEnabled = "active";
+	  if(rowPage === 1) { prevEnabled = "disabled"; }
+	  else { prevEnabled = "active"; }
 
 	  console.log("THE CURRENT PAGE = ", rowPage);
 	
 	  proxy.get_shots_object_by_debuts(rowPage, function(error, shots) {
-	    if (error) return next(error);
+		var i, p;
+		
+	    if (error) { return next(error); }
 
-	    for(var i=0; i<shots.shots.length; i++){
+	    for(i=0; i<shots.shots.length; i++){
 	      debut_shots.push(shots.shots[i]);
 	    }
-	    for(var p=2; p<shots.pages+1; p++){
+	    for(p=2; p<shots.pages+1; p++){
 	      pages.push(p);
 	    }
 
@@ -61,9 +64,47 @@ module.exports = function(app) {
 										isEnabled: prevEnabled,
 										page: previousPage
 									}
-				            });
+	    });
 	  });
 	
+	});
+	
+	app.post('/search', function(req, res, next){
+		var postUserName = req.body.username,
+			debut_shots = [],
+		    pages = [];
+		
+		console.log('username: ',req.body.username);
+		proxy.get_object_by_username(postUserName, function(error, userData) {
+			var i, p;
+			
+			if(error) { //return next(error);
+				return res.render('search', { title: 'National Design League', 
+									  searchData: "NO Results Found For " + postUserName
+					   });
+			}
+			
+			for(i=0; i<userData.shots.length; i++){
+		      debut_shots.push(userData.shots[i]);
+		    }
+		    for(p=2; p<userData.pages+1; p++){
+		      pages.push(p);
+		    }
+			
+			console.log('USERNAME : ',userData);
+			
+			// res.render('search', { title: 'National Design League', 
+			// 					  searchData: JSON.stringify(userData)
+			// });
+			
+			res.render('search', { title: 'National Design League', 
+		                          debut_shots: debut_shots, 
+		                          per_page: userData.per_page, 
+								  //searchData: JSON.stringify(userData),
+		                          pages: pages
+		    });
+		
+		});
 	});
 	
 	app.get('/about', function(req, res, next){

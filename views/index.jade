@@ -17,8 +17,8 @@ block navigation
 							a(href='/about') About
 						li
 							a(href='/contact') Contact
-					.navbar-search(class='pull-right', action='')
-						input(type='text', class='search-query span2', placeholder='Search')
+					form.navbar-search(class='pull-right', method='POST', action='/search')
+						input(type='text', class='search-query span2', name='username', onfocus='if(this.placeholder === "Search...") {this.placeholder = "";}', onblur='if(this.placeholder === "") {this.placeholder = "Search...";}', placeholder='Search...')
 
 block header
 	.jumbotron(class='masthead')
