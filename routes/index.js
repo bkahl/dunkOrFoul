@@ -1,4 +1,4 @@
-/*globals exports */
+/*globals exports, require, module*/
 
 var mongoose          = require('mongoose'),
     config            = require('../config'),
@@ -25,12 +25,12 @@ module.exports = function(app) {
 	
 	var proxy = new DribbbleProxy();
 	
-	app.get('/', function(req, res, next){
+	// Data that is pulled from the dribbble api when /index page is loaded
+	app.get('/', function( req, res, next ){ // req: request, res: response, next: next
 	  
 	  var debut_shots = [],
-	      pages = [];
-
-	  var rowPage  = (req.query['page']*1 || 1),
+	      pages = [],
+		  rowPage  = (req.query['page'] || 1), // old : rowPage  = (req.query['page']*1 || 1)
 	      nextPage = parseInt(rowPage,10)+1,
 	      previousPage = rowPage <= 1 ? 1 : parseInt(rowPage,10)-1,
 	      prevEnabled, nextEnabled;
@@ -69,73 +69,71 @@ module.exports = function(app) {
 	
 	});
 	
-	app.post('/search', function(req, res, next){
-
-		 // shots_count:
-		 // 	     twitter_screen_name:
-		 // 	     avatar_url:
-		 // 	     likes_received_count:
-		 // 	     name:
-		 // 	     created_at:
-		 // 	     location:
-		 // 	     following_count:
-		 // 	     likes_count:
-		 // 	     website_url:
-		 // 	     username:
-		 // 	     url:
-		 // 	     rebounds_count:
-		 // 	     draftees_count:
-		 // 	     id:
-		 // 	     drafted_by_player_id:
-		 // 	     followers_count:
-		 // 	     comments_received_count:
-		 // 	     comments_count:
-		 // 	     rebounds_received_count:
+	app.post('/search', function( req, res, next ){
 	
-		var postUserName = req.body.username,
-			player_shots = [],
-		    pages = [];
+		/***********************************************************************************************
+		* Global Variables: app.post('/search),
+		*
+		* 1) postUserName		:   pulls username searched from the client side.
+		* 2) player_shots   []	:   array of hashes based on user shots count.
+		* 3) player_info    {}	:   dynamically created data hash that stores username data from dribbble api.
+		*
+		*	 hash : { twitter_screen_name, avatar_url, likes_received_count, name, created_at,
+		*          location, following_count, likes_count, website_url, username, url, 
+		*          rebounds_count, draftees_count, id, drafted_by_player_id, followers_count,
+		*          comments_received_count, comments_count, rebounds_received_count }
+		*
+		* 4) psIndex			:   first indexed data hash stored in th player_shots[] created on
+		*							search page load.
+		*
+		***********************************************************************************************/
 		
-		console.log('username: ',req.body.username);
+		var postUserName	=		req.body.username,
+			player_shots	=		[],
+			player_info		=		{},
+			psIndex;
+			
+		/*********************************************************************************************/
+		
+		console.log('username: ',req.body.username)
 		
 		// proxy to search for usernames on dribbbles api
-		proxy.get_object_by_username(postUserName, function( error, userData) {
+		proxy.get_object_by_username( postUserName, function( error, userData ) {
             
 			if(error) { return next(error); }
 			
-			for(i=0; i<userData.shots.length; i++){
+			for(var i=0; i<userData.shots.length; i++){
 				player_shots.push(userData.shots[i]);
 			}
 			
-			var player_info = {};
-			var ps = player_shots[0].player;
+			psIndex = player_shots[0].player;
 			
-			for (i in ps){
+			for ( i in psIndex ){
 				//checks to see if player_shots array has this 'i' property before pushing/creating the
 				//player_info array
-				if (ps.hasOwnProperty(i)) {
-					var dynamic_var_name = i;
+				if ( psIndex.hasOwnProperty( i ) ) {
+					var dynamic_property_name = i;
 					// creates dynamic object by storing everything on a namespace
-					player_info[dynamic_var_name] = ps[i];
+					player_info[dynamic_property_name] = psIndex[i];
 				}	
 			}
 			//console.log(player_info);
-			console.log(player_shots);
+			//console.log(player_shots);
 			
-			res.render('search', { 	searchTitle: 'NDL - ' + player_info.name,
-									title: 'National Design League', 
-		                          	player_info: player_info,
-								  	player_shots: player_shots
+			res.render('search', {	searchTitle: 'NDL - ' + player_info.name,
+									title: 'National Design League',
+									player_info: player_info,
+									player_shots: player_shots
 			});
-		
+
 		});
 	});
 	
-	app.get('/about', function(req, res, next){
+	app.get('/about', function( req, res, next ){
 		res.render('about', { title: 'National Design League' });
 	});
 	
-	app.get('/contact', function(req, res, next){
+	app.get('/contact', function( req, res, next ){
 		res.render('contact', { title: 'National Design League' });
 	});
 	
