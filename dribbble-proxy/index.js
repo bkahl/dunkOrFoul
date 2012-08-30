@@ -26,7 +26,7 @@ DribbbleProxy.prototype.get_shots_object_by_debuts = function( page, callback ) 
 DribbbleProxy.prototype.get_object_by_username = function( username, callback ) {
   //this.dribbbleGetRequest("/"+username, function(err, usernameFound){
   //changing to /player/:id/shots
-  this.dribbbleGetRequest("/players/"+username+"/shots", function(err, usernameFound){
+  this.dribbbleGetRequest("/"+username+"/shots/", function(err, usernameFound){
     if (err) return callback("Could Not Find Username!"); 
     callback(null, usernameFound);
   });

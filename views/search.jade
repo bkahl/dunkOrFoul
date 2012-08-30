@@ -1,5 +1,8 @@
 extends layout
 
+block append head
+	title=searchTitle
+
 block navigation
 	.navbar(class='navbar-inverse navbar-fixed-top')
 		.navbar-inner
@@ -23,19 +26,29 @@ block navigation
 block header
 	.jumbotron(class='masthead')
 		.container
-			h2 Search
+			h2=player_info.name
+
+block social
+	.bs-docs-social
+		.container
+			ul.bs-docs-social-buttons
+				li.follow-btn
+					iframe(allowtransparency='true', frameborder='0', scrolling='no', src='https://platform.twitter.com/widgets/follow_button.1346143399.html#_=1346180347059&amp;id=twitter-widget-1&amp;lang=en&amp;screen_name='+player_info.twitter_screen_name+'&amp;show_count=true&amp;show_screen_name=true&amp;size=m', class='twitter-follow-button', style='width: 217px; height: 20px; ', title='Twitter Follow Button', data-twttr-rendered='true')
 
 block content
-	.container
+	.container(class='search',style='margin-top: 30px;')
 
 		//p=searchData
 
+		img(src=player_info.avatar_url, class='img-polaroid', style='margin-right: 15px;')
+		h2(style='display:inline; position:relative; bottom:25px;')=player_info.name
+
 		//Works  
 		ul.thumbnails
-			each shot in debut_shots
+			//each shot in player_shots
 				li
 					a.thumbnail(href='#')
-						img(src=shot.image_url, alt='', style='width: 200px !important; height: 150px !important;')
+						img(alt='', style='width: 200px !important; height: 150px !important;')
       
 block footer
 	footer.footer

@@ -70,39 +70,63 @@ module.exports = function(app) {
 	});
 	
 	app.post('/search', function(req, res, next){
+
+		 // shots_count:
+		 // 	     twitter_screen_name:
+		 // 	     avatar_url:
+		 // 	     likes_received_count:
+		 // 	     name:
+		 // 	     created_at:
+		 // 	     location:
+		 // 	     following_count:
+		 // 	     likes_count:
+		 // 	     website_url:
+		 // 	     username:
+		 // 	     url:
+		 // 	     rebounds_count:
+		 // 	     draftees_count:
+		 // 	     id:
+		 // 	     drafted_by_player_id:
+		 // 	     followers_count:
+		 // 	     comments_received_count:
+		 // 	     comments_count:
+		 // 	     rebounds_received_count:
+	
 		var postUserName = req.body.username,
-			debut_shots = [],
+			player_shots = [],
 		    pages = [];
 		
 		console.log('username: ',req.body.username);
-		proxy.get_object_by_username(postUserName, function(error, userData) {
-			var i, p;
-			
-			if(error) { //return next(error);
-				return res.render('search', { title: 'National Design League', 
-									  searchData: "NO Results Found For " + postUserName
-					   });
-			}
+		
+		// proxy to search for usernames on dribbbles api
+		proxy.get_object_by_username(postUserName, function( error, userData) {
+            
+			if(error) { return next(error); }
 			
 			for(i=0; i<userData.shots.length; i++){
-		      debut_shots.push(userData.shots[i]);
-		    }
-		    for(p=2; p<userData.pages+1; p++){
-		      pages.push(p);
-		    }
+				player_shots.push(userData.shots[i]);
+			}
 			
-			console.log('USERNAME : ',userData);
+			var player_info = {};
+			var ps = player_shots[0].player;
 			
-			// res.render('search', { title: 'National Design League', 
-			// 					  searchData: JSON.stringify(userData)
-			// });
+			for (i in ps){
+				//checks to see if player_shots array has this 'i' property before pushing/creating the
+				//player_info array
+				if (ps.hasOwnProperty(i)) {
+					var dynamic_var_name = i;
+					// creates dynamic object by storing everything on a namespace
+					player_info[dynamic_var_name] = ps[i];
+				}	
+			}
+			//console.log(player_info);
+			console.log(player_shots);
 			
-			res.render('search', { title: 'National Design League', 
-		                          debut_shots: debut_shots, 
-		                          per_page: userData.per_page, 
-								  //searchData: JSON.stringify(userData),
-		                          pages: pages
-		    });
+			res.render('search', { 	searchTitle: 'NDL - ' + player_info.name,
+									title: 'National Design League', 
+		                          	player_info: player_info,
+								  	player_shots: player_shots
+			});
 		
 		});
 	});
