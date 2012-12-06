@@ -6,11 +6,13 @@ var express         					= require('express'),
     routes          					= require('./routes'),
 	fs 									= require('fs'),
 	less 								= require('less'),
+	http 								= require('http'),
 	TWITTER_BOOTSTRAP_PATH 				= './vendor/twitter/bootstrap/less',
 	masterCSS							= './public/stylesheets/style.css',
     // middleware      					= require('./middleware/user'),
     app 								= module.exports = express.createServer(),
-    port 								= process.env.PORT || 4000;
+    //port 								= process.env.PORT || 4000;
+  	port								= process.env.VMC_APP_PORT || 1337;
 
 
 // Configuration
@@ -75,3 +77,7 @@ routes(app);
 app.listen(port, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 });
+
+// http.createServer(app).listen(port), function(){
+//   console.log("Express server listening on port %d in %s mode " + port);
+// });
